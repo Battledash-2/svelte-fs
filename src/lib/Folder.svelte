@@ -82,14 +82,17 @@
 		let cur = folder;
 		if (!cur) return [[]];
 		p.push([cur.name]);
+		let og = cur.uuid;
 
 		while (cur.parent && cur.parent !== 'root') {
 			cur = $folders.find((f) => f.uuid === cur.parent);
 			p.push([cur.name]);
 		}
 
-		cur = $folders.find((f) => f.uuid === cur.parent);
-		cur && p.push([cur.name]);
+		if (og !== 'root') {
+			cur = $folders.find((f) => f.uuid === cur.parent);
+			cur && p.push([cur.name]);
+		}
 
 		p = p.reverse();
 
@@ -142,7 +145,7 @@
 			})
 		);
 		folders.update((f) => f.filter((c) => c.uuid !== _id));
-		if (nav) navigate('/');
+		if (nav) navigate('../');
 	}
 
 	function renameFolder(/** @type {MouseEvent} */ e, folder) {
@@ -177,7 +180,7 @@
 			<div class="item_wrapper">
 				{#each $folders.find((f) => f.uuid === folder.uuid).folders as folderId}
 					{@const fldr = getFolder(folderId)}
-					<a style="color: var(--color)" href={'../'.repeat(path().length) + path().at(-1)[1] + '/' + fldr.name} use:link>
+					<a style="color: var(--color)" href={'./' + '../'.repeat(path().length - 1) + path().at(-1)[1] + '/' + fldr.name} use:link>
 						<div style={`--img:url(${FolderIcon})`} class="item folder" title={fldr.name}>
 							<span>{fldr.name}</span>
 							<button class="refactor-btn" on:click={(e) => renameFolder(e, fldr)} title="rename">R</button>
@@ -196,7 +199,7 @@
 			<div class="item_wrapper">
 				{#each $folders.find((f) => f.uuid === folder.uuid).files as fileId}
 					{@const file = getFile(fileId)}
-					<a style="color: var(--color)" use:link href={'../'.repeat(path().length) + 'edit/' + path().at(-1)[1] + '/' + file?.name}>
+					<a style="color: var(--color)" use:link href={'./' + '../'.repeat(path().length - 1) + 'edit/' + path().at(-1)[1] + '/' + file?.name}>
 						<div style={`--img:url(${FileIcon})`} class="item file" title={file?.name}>
 							<span>{file?.name}</span>
 						</div>

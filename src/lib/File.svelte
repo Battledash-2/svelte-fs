@@ -47,7 +47,15 @@
 	}
 
 	function done() {
-		let path = location.origin + '/' + location.pathname.split('/').slice(2, -1).join('/');
+		let path =
+			location.origin +
+			'/' +
+			location.pathname
+				.split('/')
+				.slice(0, -1)
+				.filter((c) => c !== 'edit')
+				.join('/')
+				.slice(1);
 		navigate(path);
 	}
 </script>

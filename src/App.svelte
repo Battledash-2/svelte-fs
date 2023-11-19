@@ -60,16 +60,27 @@
 
 		return [file, folder];
 	}
+
+	if (location.pathname === '/svelte-fs') navigate('/svelte-fs/');
 </script>
 
 <Navbar {recent} />
 <div id="container">
 	<Router>
-		<Route path="(svelte-fs/)?edit/.*" let:wildcards>
+		<Route path="svelte-fs/edit/.*" let:wildcards>
 			{@const [file, folder] = getFile(decodeURIComponent(wildcards))}
 			<File {file} {folder} />
 		</Route>
-		<Route path="(svelte-fs/)?.*" let:wildcards>
+		<Route path="svelte-fs/.*" let:wildcards>
+			{@const folder = getFolder(decodeURIComponent(wildcards))}
+			<Folder {folder} />
+		</Route>
+
+		<Route path="edit/.*" let:wildcards>
+			{@const [file, folder] = getFile(decodeURIComponent(wildcards))}
+			<File {file} {folder} />
+		</Route>
+		<Route path=".*" let:wildcards>
 			{@const folder = getFolder(decodeURIComponent(wildcards))}
 			<Folder {folder} />
 		</Route>
