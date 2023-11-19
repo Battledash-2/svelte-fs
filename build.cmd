@@ -1,0 +1,1 @@
+vite build & copy "./404.html" "./dist/404.html"
