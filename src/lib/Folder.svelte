@@ -145,7 +145,8 @@
 			})
 		);
 		folders.update((f) => f.filter((c) => c.uuid !== _id));
-		if (nav) navigate('../');
+		console.log(location.pathname.split('/').slice(0, -1).join('/'));
+		if (nav) navigate(location.pathname.split('/').slice(0, -1).join('/')); // idk why ../ not work :|
 	}
 
 	function renameFolder(/** @type {MouseEvent} */ e, folder) {
