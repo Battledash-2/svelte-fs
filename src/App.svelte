@@ -65,11 +65,11 @@
 <Navbar {recent} />
 <div id="container">
 	<Router>
-		<Route path="edit/.*" let:wildcards>
+		<Route path="(svelte-fs/)?edit/.*" let:wildcards>
 			{@const [file, folder] = getFile(decodeURIComponent(wildcards))}
 			<File {file} {folder} />
 		</Route>
-		<Route path=".*" let:wildcards>
+		<Route path="(svelte-fs/)?.*" let:wildcards>
 			{@const folder = getFolder(decodeURIComponent(wildcards))}
 			<Folder {folder} />
 		</Route>
