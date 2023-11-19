@@ -61,8 +61,8 @@
 		return [file, folder];
 	}
 
-	if (location.pathname === '/svelte-fs') navigate('/svelte-fs/root');
 	if (location.pathname.endsWith('/')) navigate(location.pathname.slice(0, -1));
+	if (location.pathname === '/svelte-fs') navigate('/svelte-fs/root');
 </script>
 
 <Navbar {recent} />
